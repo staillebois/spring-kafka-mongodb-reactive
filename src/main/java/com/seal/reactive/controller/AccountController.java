@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.seal.reactive.configuration.KafkaTopicConfiguration;
 import com.seal.reactive.model.Account;
-import com.seal.reactive.repository.AccountReactiveRepository;
+import com.seal.reactive.service.AccountReactiveService;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -21,7 +21,7 @@ import reactor.core.publisher.Mono;
 public class AccountController {
 
 	@Autowired
-	AccountReactiveRepository accountRepository;
+	AccountReactiveService accountService;
 	
 	@Autowired
 	private KafkaTemplate<String, Account> kafkaTemplate;
@@ -29,17 +29,17 @@ public class AccountController {
 	
 	@GetMapping("/{id}")
 	public Mono<Account> getAccountById(@PathVariable String id) {
-	    return accountRepository.findById(id);
+	    return accountService.getAccountById(id);
 	}
 	
 	@GetMapping
 	public Flux<Account> getAllAccount() {
-	    return accountRepository.findAll();
+	    return accountService.getAllAccount();
 	}
 	
 	@PostMapping("/add")
 	public Mono<Account> createAccount(@RequestBody Account account) {
-	    return accountRepository.save(account).doOnNext(this::sendNotification);
+	    return accountService.createAccount(account).doOnNext(this::sendNotification);
 	}
 	
 	private void sendNotification(Account account) {
