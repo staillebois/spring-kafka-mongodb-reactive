@@ -28,18 +28,18 @@ public class AccountController {
 
 	
 	@GetMapping("/{id}")
-	public Mono<Account> getAccountById(@PathVariable String id) {
-	    return accountService.getAccountById(id);
+	public Mono<Account> getAccount(@PathVariable String id) {
+	    return accountService.getAccount(id);
 	}
 	
 	@GetMapping
-	public Flux<Account> getAllAccount() {
-	    return accountService.getAllAccount();
+	public Flux<Account> getAll() {
+	    return accountService.getAll();
 	}
 	
 	@PostMapping("/add")
-	public Mono<Account> createAccount(@RequestBody Account account) {
-	    return accountService.createAccount(account).doOnNext(this::sendNotification);
+	public Mono<Account> create(@RequestBody Account account) {
+	    return accountService.create(account).doOnNext(this::sendNotification);
 	}
 	
 	private void sendNotification(Account account) {

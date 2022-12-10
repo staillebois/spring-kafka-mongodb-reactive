@@ -15,15 +15,15 @@ public class AccountReactiveService {
 	@Autowired
 	AccountReactiveRepository accountRepository;
 	
-	public Mono<Account> getAccountById(String id) {
+	public Mono<Account> getAccount(String id) {
 		return accountRepository.findById(id);
 	}
 	
-	public Flux<Account> getAllAccount() {
+	public Flux<Account> getAll() {
 	    return accountRepository.findAll();
 	}
 	
-	public Mono<Account> createAccount(Account account) {
+	public Mono<Account> create(Account account) {
 	    return accountRepository.save(account);
 	}
 }
