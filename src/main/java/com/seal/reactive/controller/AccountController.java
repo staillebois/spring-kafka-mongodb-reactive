@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.seal.reactive.configuration.KafkaTopicConfiguration;
+
 import com.seal.reactive.model.Account;
 import com.seal.reactive.service.AccountReactiveService;
 
@@ -43,6 +43,6 @@ public class AccountController {
 	}
 	
 	private void sendNotification(Account account) {
-		kafkaTemplate.send(KafkaTopicConfiguration.TOPIC, account);
+		kafkaTemplate.sendDefault(account);
 	}
 }
