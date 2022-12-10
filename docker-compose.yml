@@ -1,11 +1,9 @@
 version: '3.8'
 
-
 x-default-healthcheck: &default-healthcheck
   interval: 10s
   timeout: 2s
   retries: 3
-
 
 services:
   mongodb:
@@ -22,12 +20,9 @@ services:
       - ALLOW_ANONYMOUS_LOGIN=yes
     ports:
       - "2181:2181"
-#    volumes:
-#      - zookeeper-data:/zookeeper_data
     healthcheck:
       <<: *default-healthcheck
       test: ["CMD", "/opt/bitnami/zookeeper/bin/zkServer.sh", "status"]
-
   kafka:
     image: bitnami/kafka:latest
     container_name: kafka
@@ -41,8 +36,6 @@ services:
       - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
     ports:
       - "9092:9092"
-#    volumes:
-#      - kafka-data:/kafka_data
     depends_on:
       - zookeeper
     healthcheck:
